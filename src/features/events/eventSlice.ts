@@ -1,36 +1,49 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface EventDataTypes {
-    id: string,
-    title: string,
-    start: string,
-    end: string,
+  id: string;
+  title: string;
+  start: string;
+  end: string;
 }
 
 const defaultEvents: EventDataTypes[] = [
-    { id: "1", title: "Event-1", start: new Date("08 March 2023 14:48 UTC").toISOString().split("T")[0], end: new Date("09 March 2023 14:48 UTC").toISOString().split("T")[0] },
-    { id: "2", title: "Event-2", start: new Date("09 March 2023 14:48 UTC").toISOString().split("T")[0], end: new Date("10 March 2023 14:48 UTC").toISOString().split("T")[0] },
-    { id: "3", title: "Event-3", start: new Date("10 March 2023 14:48 UTC").toISOString().split("T")[0], end: new Date("11 March 2023 14:48 UTC").toISOString().split("T")[0] },
-    { id: "4", title: "Event-4", start: new Date("11 March 2023 14:48 UTC").toISOString().split("T")[0], end: new Date("12 March 2023 14:48 UTC").toISOString().split("T")[0] },
+  { id: "1", title: "Event-1", start: "2023-03-09", end: "2023-03-10" },
+  { id: "2", title: "Event-2", start: "2023-03-10", end: "2023-03-11" },
+  { id: "3", title: "Event-3", start: "2023-03-11", end: "2023-03-12" },
+  { id: "4", title: "Event-4", start: "2023-03-12", end: "2023-03-13" },
 ];
 
 type InitialStateTypes = {
-    events: EventDataTypes[]
-}
+  events: EventDataTypes[];
+  selectDay: string;
+  selectEvent: EventDataTypes | null;
+};
 
 const initialState: InitialStateTypes = {
-    events: defaultEvents,
-}
+  events: defaultEvents,
+  selectDay: "",
+  selectEvent: null,
+};
+
 const eventSlice = createSlice({
-    name: "events",
-    initialState,
-    reducers: {
-        addEvents: (state, action) => {
-            const event = action.payload;
-            state.events = [...state.events, event]
-        }
-    }
+  name: "events",
+  initialState,
+  reducers: {
+    addEvents: (state, action) => {
+      const newEvent = action.payload;
+      state.events = [...state.events, newEvent];
+    },
+    selectDay: (state, action) => {
+      state.selectDay = action.payload;
+    },
+    selectEvent: (state, action) => {
+      const id = action.payload;
+      const selectedEvent = state.events.find((event)=>event.id === id)
+      console.log(selectedEvent)
+    },
+  },
+});
 
-})
-
+export const { addEvents, selectDay,selectEvent } = eventSlice.actions;
 export default eventSlice.reducer;
