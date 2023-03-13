@@ -17,13 +17,13 @@ const defaultEvents: EventDataTypes[] = [
 type InitialStateTypes = {
   events: EventDataTypes[];
   selectDay: string;
-  selectEvent: EventDataTypes | null;
+  selectEvent: EventDataTypes | undefined;
 };
 
 const initialState: InitialStateTypes = {
   events: defaultEvents,
   selectDay: "",
-  selectEvent: null,
+  selectEvent: undefined,
 };
 
 const eventSlice = createSlice({
@@ -34,16 +34,26 @@ const eventSlice = createSlice({
       const newEvent = action.payload;
       state.events = [...state.events, newEvent];
     },
+    updateEvents: (state, action) => {
+      const newEvent = action.payload;
+      const newEventIndex = state.events.findIndex(
+        (event) => event.id === newEvent.id
+      );
+      if (newEventIndex >= 0) {
+        state.events[newEventIndex] = newEvent;
+      }
+    },
     selectDay: (state, action) => {
       state.selectDay = action.payload;
     },
     selectEvent: (state, action) => {
       const id = action.payload;
-      const selectedEvent = state.events.find((event)=>event.id === id)
-      console.log(selectedEvent)
+      const selectedEvent = state.events.find((event) => event.id === id);
+      state.selectEvent = selectedEvent;
     },
   },
 });
 
-export const { addEvents, selectDay,selectEvent } = eventSlice.actions;
+export const { addEvents, updateEvents, selectDay, selectEvent } =
+  eventSlice.actions;
 export default eventSlice.reducer;
