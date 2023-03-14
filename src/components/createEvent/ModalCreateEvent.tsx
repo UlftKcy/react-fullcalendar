@@ -7,7 +7,7 @@ import TextInput from "../Input/TextInput";
 import Modal from "../Modal";
 import { v4 as uuid } from 'uuid';
 
-const ModalCreateEvent = ({ onToggle, calendarRef }: { onToggle: any, calendarRef: any }) => {
+const ModalCreateEvent = ({ onToggle }: { onToggle: any}) => {
   const selectedDay = useAppSelector((state) => state.eventReducer.selectDay);
   const [title, setTitle] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -23,11 +23,6 @@ const ModalCreateEvent = ({ onToggle, calendarRef }: { onToggle: any, calendarRe
   const handleSubmit = (e: any) => {
     e.preventDefault();
     let newEvent = { id: uuid(), title: title, start: startDate, end: endDate };
-    let calendarApi = calendarRef.current.calendar
-    if (title) {
-      // will render immediately. will call handleEventAdd
-      calendarApi.addEvent(newEvent, true) // temporary=true, will get overwritten when reducer gives new events
-    }
     dispatch(addEvents(newEvent));
     onToggle();
   };

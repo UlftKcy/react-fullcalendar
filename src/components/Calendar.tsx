@@ -15,7 +15,7 @@ import ModalUpdateEvent from "./updateEvent/ModalUpdateEvent";
 const Calendar = () => {
   const calendarRef = useRef<any>();
   const { isShowing, onToggle } = useModal();
-  const [modeModal,setModeModal]=  useState("CreateModal");
+  const [modeModal, setModeModal] = useState("CreateModal");
   const dispatch = useDispatch();
   const events = useAppSelector((state) => state.eventReducer.events);
 
@@ -40,26 +40,30 @@ const Calendar = () => {
       <FullCalendar
         ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        selectable={true}
-        editable={true}
-        locales={allLocales}
-        locale={"tr"}
-        initialEvents={events}
-        eventContent={renderEventContent}
-        eventClassNames={"bg-green-600 border-0 pl-2 py-1 my-7"}
         buttonText={{
           prev: "Önceki",
           next: "Sonraki",
           today: "Bugün",
         }}
+        headerToolbar={{
+          start: "today prev next",
+          end: "dayGridMonth dayGridWeek dayGridDay",
+        }}
+        eventClassNames={"bg-green-600 border-0 pl-2 py-1 my-7"}
+        locales={allLocales}
+        locale={"tr"}
+        selectable={true}
+        editable={true}
+        events={events}
+        eventContent={renderEventContent}
         eventClick={handleEventClick}
         select={handleDateSelect}
         dateClick={(e: DateClickArg) => {
           /* console.log(e); */
         }}
       />
-      {(isShowing && modeModal === "CreateModal") && <ModalCreateEvent onToggle={onToggle} calendarRef={calendarRef} />}
-      {(isShowing && modeModal === "UpdateModal") && <ModalUpdateEvent onToggle={onToggle} calendarRef={calendarRef} />}
+      {(isShowing && modeModal === "CreateModal") && <ModalCreateEvent onToggle={onToggle}/>}
+      {(isShowing && modeModal === "UpdateModal") && <ModalUpdateEvent onToggle={onToggle}/>}
     </div>
   );
 };

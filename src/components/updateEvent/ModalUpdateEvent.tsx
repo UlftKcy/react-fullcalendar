@@ -6,13 +6,7 @@ import Modal from "../Modal";
 import { useAppSelector } from "../../hooks/redux-helper";
 import { updateEvents } from "../../features/events/eventSlice";
 
-const ModalUpdateEvent = ({
-  onToggle,
-  calendarRef,
-}: {
-  onToggle: any;
-  calendarRef: any;
-}) => {
+const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
   const currentEvent = useAppSelector((state) => state.eventReducer.selectEvent);
   const [title, setTitle] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -35,13 +29,6 @@ const ModalUpdateEvent = ({
       start: startDate,
       end: endDate,
     };
-
-    let calendarApi = calendarRef.current.calendar;
-    let calendarEvents = calendarApi.getEvents();
-    let currentCalendarEvent = calendarEvents.find((event: any) => event.id === updateEvent.id)
-    
-    currentCalendarEvent.setTitle(title);
-
     dispatch(updateEvents(updateEvent))
     onToggle();
   };
