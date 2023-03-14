@@ -49,7 +49,7 @@ const Calendar = () => {
           start: "today prev next",
           end: "dayGridMonth dayGridWeek dayGridDay",
         }}
-        eventClassNames={"bg-green-600 border-0 pl-2 py-1 my-7"}
+        eventClassNames={"bg-indigo-500 border-0 px-2 py-1 my-7"}
         locales={allLocales}
         locale={"tr"}
         selectable={true}

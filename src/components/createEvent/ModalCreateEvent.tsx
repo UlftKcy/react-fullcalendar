@@ -7,7 +7,7 @@ import TextInput from "../Input/TextInput";
 import Modal from "../Modal";
 import { v4 as uuid } from 'uuid';
 
-const ModalCreateEvent = ({ onToggle }: { onToggle: any}) => {
+const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
   const selectedDay = useAppSelector((state) => state.eventReducer.selectDay);
   const [title, setTitle] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
@@ -30,34 +30,38 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any}) => {
   return (
     <Modal headerText="Create New Event" onToggle={onToggle}>
       <form onSubmit={handleSubmit}>
-        <div className="py-4 px-8">
+        <div className="p-4">
           <TextInput
-            className="ring-1 ring-gray-300 w-full focus:ring-sky-500 focus:outline-none px-2 py-2 mt-2 rounded-md"
-            label="Event Title"
+            label="Title"
             type="text"
             name="title"
             id="title"
+            placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextInput
-            className="ring-1 ring-gray-300 w-full focus:ring-sky-500 focus:outline-none px-2 py-2 mt-2 rounded-md"
             label="Start Date"
-            type="date"
+            type="datetime-local"
             name="startDate"
             id="startDate"
+            placeholder="Start Date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
           <TextInput
-            className="ring-1 ring-gray-300 w-full focus:ring-sky-500 focus:outline-none px-2 py-2 mt-2 rounded-md"
             label="End Date"
-            type="date"
+            type="datetime-local"
             name="endDate"
             id="endDate"
+            placeholder="End Date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
+          <label htmlFor="allDay">
+            <input type="checkbox" name="allDay" id="allDay" className="w-4 h-4 mr-2 accent-indigo-600 border-indigo-300 rounded focus:ring-indigo-500 focus:ring-2" />
+            All Day
+          </label>
         </div>
         <div className="py-3 px-8 flex justify-end">
           <Button
@@ -65,12 +69,6 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any}) => {
             className="px-3 py-1 bg-sky-500 text-white font-normal hover:bg-sky-600 border-0 focus:outline-none tracking-wide mr-2"
           >
             Save
-          </Button>
-          <Button
-            onClick={onToggle}
-            className="px-3 py-1 bg-slate-400 text-white font-normal hover:bg-slate-500 border-0 focus:outline-none tracking-wide"
-          >
-            Cancel
           </Button>
         </div>
       </form>

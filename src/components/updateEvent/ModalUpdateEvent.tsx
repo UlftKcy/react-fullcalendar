@@ -35,31 +35,31 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
   return (
     <Modal headerText="Update Event" onToggle={onToggle}>
       <form onSubmit={handleSubmit}>
-        <div className="py-4 px-8">
+        <div className="p-4">
           <TextInput
-            className="ring-1 ring-gray-300 w-full focus:ring-sky-500 focus:outline-none px-2 py-2 mt-2 rounded-md"
-            label="Event Title"
+            label="Title"
             type="text"
             name="title"
             id="title"
+            placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextInput
-            className="ring-1 ring-gray-300 w-full focus:ring-sky-500 focus:outline-none px-2 py-2 mt-2 rounded-md"
             label="Start Date"
             type="date"
             name="startDate"
             id="startDate"
+            placeholder="Start Date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
           <TextInput
-            className="ring-1 ring-gray-300 w-full focus:ring-sky-500 focus:outline-none px-2 py-2 mt-2 rounded-md"
             label="End Date"
             type="date"
             name="endDate"
             id="endDate"
+            placeholder="Start Date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
@@ -73,12 +73,6 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
           </Button>
           <Button className="px-3 py-1 bg-slate-400 text-white font-normal hover:bg-slate-500 border-0 focus:outline-none tracking-wide mr-2">
             Delete
-          </Button>
-          <Button
-            onClick={onToggle}
-            className="px-3 py-1 bg-slate-400 text-white font-normal hover:bg-slate-500 border-0 focus:outline-none tracking-wide"
-          >
-            Cancel
           </Button>
         </div>
       </form>

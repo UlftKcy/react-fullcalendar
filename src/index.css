@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    ::-webkit-calendar-picker-indicator {
+    background-color: transparent;
+    padding: 5px;
+    cursor: pointer;
+    position: absolute;
+    left:5%;
+    width:100%;
+    filter: invert(.5);
+  }
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
