@@ -7,11 +7,13 @@ import { useAppSelector } from "../../hooks/redux-helper";
 import { updateEvents } from "../../features/events/eventSlice";
 
 const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
-  const currentEvent = useAppSelector((state) => state.eventReducer.selectEvent);
+  const currentEvent = useAppSelector(
+    (state) => state.eventReducer.selectEvent
+  );
   const [title, setTitle] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
-  const [allDay, setAllDay] = useState<boolean>(false);
+  const [isAllDay, setIsAllDay] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,7 +21,7 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
       setTitle(currentEvent.title ?? "");
       setStartDate(currentEvent.start ?? "");
       setEndDate(currentEvent.end ?? "");
-      setAllDay(currentEvent.allDay ?? "")
+      setIsAllDay(currentEvent.allDay ?? "");
     }
   }, []);
 
@@ -28,10 +30,11 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
     let updateEvent = {
       ...currentEvent,
       title: title,
-      start: startDate,
-      end: endDate,
+      start: isAllDay ? `${startDate.split("T")[0]}T00:00:00` : startDate,
+      end: isAllDay ? `${endDate.split("T")[0]}T23:59:00` : endDate,
+      allDay: isAllDay,
     };
-    dispatch(updateEvents(updateEvent))
+    dispatch(updateEvents(updateEvent));
     onToggle();
   };
   return (
@@ -51,21 +54,21 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
           <TextInput
             className="pl-12"
             label="Start Date"
-            type={allDay ? "date" : "datetime-local"}
+            type={isAllDay ? "date" : "datetime-local"}
             name="startDate"
             id="startDate"
             placeholder="Start Date"
-            value={startDate}
+            value={isAllDay ? `${startDate.split("T")[0]}` : startDate}
             onChange={(e) => setStartDate(e.target.value)}
           />
           <TextInput
             className="pl-12"
             label="End Date"
-            type={allDay ? "date" : "datetime-local"}
+            type={isAllDay ? "date" : "datetime-local"}
             name="endDate"
             id="endDate"
             placeholder="Start Date"
-            value={endDate}
+            value={isAllDay ? `${endDate.split("T")[0]}` : endDate}
             onChange={(e) => setEndDate(e.target.value)}
           />
           <label htmlFor="allDay">
@@ -74,8 +77,8 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
               type="checkbox"
               name="allDay"
               id="allDay"
-              checked={allDay}
-              onChange={() => setAllDay(!allDay)}
+              checked={isAllDay}
+              onChange={() => setIsAllDay(!isAllDay)}
             />
             All Day
           </label>

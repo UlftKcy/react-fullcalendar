@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addEvents } from "../../features/events/eventSlice";
-import { useAppSelector } from "../../hooks/redux-helper";
 import Button from "../Button/Button";
 import TextInput from "../Input/TextInput";
 import Modal from "../Modal";
@@ -11,7 +10,7 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
   const [title, setTitle] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
-  const [allDay, setAllDay] = useState<boolean>(false);
+  const [isAllDay, setIsAllDay] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const handleSubmit = (e: any) => {
@@ -19,8 +18,9 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
     let newEvent = {
       id: uuid(),
       title: title,
-      start: startDate,
-      end: endDate,
+      start: isAllDay ? `${startDate.split("T")[0]}T00:00:00` : startDate,
+      end: isAllDay ? `${endDate.split("T")[0]}T23:59:00` : endDate,
+      allDay:isAllDay,
     };
     dispatch(addEvents(newEvent));
     onToggle();
@@ -43,7 +43,7 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
           <TextInput
             className="pl-12"
             label="Start Date"
-            type={allDay ? "date" : "datetime-local"}
+            type={isAllDay ? "date" : "datetime-local"}
             name="startDate"
             id="startDate"
             placeholder="Start Date"
@@ -53,7 +53,7 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
           <TextInput
             className="pl-12"
             label="End Date"
-            type={allDay ? "date" : "datetime-local"}
+            type={isAllDay ? "date" : "datetime-local"}
             name="endDate"
             id="endDate"
             placeholder="End Date"
@@ -66,8 +66,8 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
               type="checkbox"
               name="allDay"
               id="allDay"
-              checked={allDay}
-              onChange={() => setAllDay(!allDay)}
+              checked={isAllDay}
+              onChange={() => setIsAllDay(!isAllDay)}
             />
             All Day
           </label>

@@ -9,10 +9,10 @@ interface EventDataTypes {
 }
 
 const defaultEvents: EventDataTypes[] = [
-  { id: "1", title: "Event-1", start: "2023-03-09T00:00:00", end: "2023-03-09T23:59:00", allDay: false },
-  { id: "2", title: "Event-2", start: "2023-03-10T00:00:00", end: "2023-03-10T23:59:00", allDay: false },
-  { id: "3", title: "Event-3", start: "2023-03-11T00:00:00", end: "2023-03-11T23:59:00", allDay: false },
-  { id: "4", title: "Event-4", start: "2023-03-12T00:00:00", end: "2023-03-12T23:59:00", allDay: false },
+  { id: "1", title: "Event-1", start: "2023-03-09T00:00:00", end: "2023-03-09T23:59:00", allDay: true },
+  { id: "2", title: "Event-2", start: "2023-03-10T00:00:00", end: "2023-03-10T23:59:00", allDay: true },
+  { id: "3", title: "Event-3", start: "2023-03-11T00:00:00", end: "2023-03-11T23:59:00", allDay: true },
+  { id: "4", title: "Event-4", start: "2023-03-12T00:00:00", end: "2023-03-12T23:59:00", allDay: true },
 ];
 
 type InitialStateTypes = {
