@@ -8,7 +8,7 @@ import { EventContentArg } from "@fullcalendar/core";
 import { useModal } from "../hooks/useModal";
 import { useAppSelector } from "../hooks/redux-helper";
 import { useDispatch } from "react-redux";
-import { selectDay, selectEvent } from "../features/events/eventSlice";
+import { selectEvent } from "../features/events/eventSlice";
 import ModalCreateEvent from "./createEvent/ModalCreateEvent";
 import ModalUpdateEvent from "./updateEvent/ModalUpdateEvent";
 
@@ -32,7 +32,6 @@ const Calendar = () => {
   const handleDateSelect = (selectInfo: any) => {
     setModeModal("CreateModal");
     onToggle();
-    dispatch(selectDay(selectInfo.startStr));
   };
 
   return (
@@ -45,11 +44,11 @@ const Calendar = () => {
           next: "Sonraki",
           today: "Bugün",
         }}
-        headerToolbar={{
+       /*  headerToolbar={{
           start: "today prev next",
           end: "dayGridMonth dayGridWeek dayGridDay",
-        }}
-        eventClassNames={"bg-indigo-500 border-0 px-2 py-1 my-7"}
+        }} */
+        eventClassNames={"bg-indigo-500 text-white hover:ring-1 hover:ring-indigo-500 border-0 px-2 py-1 my-7"}
         locales={allLocales}
         locale={"tr"}
         selectable={true}

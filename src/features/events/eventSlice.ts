@@ -5,24 +5,23 @@ interface EventDataTypes {
   title: string;
   start: string;
   end: string;
+  allDay: boolean
 }
 
 const defaultEvents: EventDataTypes[] = [
-  { id: "1", title: "Event-1", start: "2023-03-09", end: "2023-03-10" },
-  { id: "2", title: "Event-2", start: "2023-03-10", end: "2023-03-11" },
-  { id: "3", title: "Event-3", start: "2023-03-11", end: "2023-03-12" },
-  { id: "4", title: "Event-4", start: "2023-03-12", end: "2023-03-13" },
+  { id: "1", title: "Event-1", start: "2023-03-09T00:00:00", end: "2023-03-09T23:59:00", allDay: false },
+  { id: "2", title: "Event-2", start: "2023-03-10T00:00:00", end: "2023-03-10T23:59:00", allDay: false },
+  { id: "3", title: "Event-3", start: "2023-03-11T00:00:00", end: "2023-03-11T23:59:00", allDay: false },
+  { id: "4", title: "Event-4", start: "2023-03-12T00:00:00", end: "2023-03-12T23:59:00", allDay: false },
 ];
 
 type InitialStateTypes = {
   events: EventDataTypes[];
-  selectDay: string;
   selectEvent: EventDataTypes | undefined;
 };
 
 const initialState: InitialStateTypes = {
   events: defaultEvents,
-  selectDay: "",
   selectEvent: undefined,
 };
 
@@ -43,9 +42,7 @@ const eventSlice = createSlice({
         state.events[newEventIndex] = newEvent;
       }
     },
-    selectDay: (state, action) => {
-      state.selectDay = action.payload;
-    },
+
     selectEvent: (state, action) => {
       const id = action.payload;
       const selectedEvent = state.events.find((event) => event.id === id);
@@ -54,6 +51,6 @@ const eventSlice = createSlice({
   },
 });
 
-export const { addEvents, updateEvents, selectDay, selectEvent } =
+export const { addEvents, updateEvents, selectEvent } =
   eventSlice.actions;
 export default eventSlice.reducer;

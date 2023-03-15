@@ -5,24 +5,23 @@ import { useAppSelector } from "../../hooks/redux-helper";
 import Button from "../Button/Button";
 import TextInput from "../Input/TextInput";
 import Modal from "../Modal";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
-  const selectedDay = useAppSelector((state) => state.eventReducer.selectDay);
   const [title, setTitle] = useState<string>("");
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [allDay, setAllDay] = useState<boolean>(false);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (selectedDay) {
-      setStartDate(selectedDay);
-    }
-  }, []);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    let newEvent = { id: uuid(), title: title, start: startDate, end: endDate };
+    let newEvent = {
+      id: uuid(),
+      title: title,
+      start: startDate,
+      end: endDate,
+    };
     dispatch(addEvents(newEvent));
     onToggle();
   };
@@ -32,6 +31,7 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
       <form onSubmit={handleSubmit}>
         <div className="p-4">
           <TextInput
+            className="pl-2"
             label="Title"
             type="text"
             name="title"
@@ -41,8 +41,9 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
             onChange={(e) => setTitle(e.target.value)}
           />
           <TextInput
+            className="pl-12"
             label="Start Date"
-            type="datetime-local"
+            type={allDay ? "date" : "datetime-local"}
             name="startDate"
             id="startDate"
             placeholder="Start Date"
@@ -50,8 +51,9 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
             onChange={(e) => setStartDate(e.target.value)}
           />
           <TextInput
+            className="pl-12"
             label="End Date"
-            type="datetime-local"
+            type={allDay ? "date" : "datetime-local"}
             name="endDate"
             id="endDate"
             placeholder="End Date"
@@ -59,7 +61,14 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
             onChange={(e) => setEndDate(e.target.value)}
           />
           <label htmlFor="allDay">
-            <input type="checkbox" name="allDay" id="allDay" className="w-4 h-4 mr-2 accent-indigo-600 border-indigo-300 rounded focus:ring-indigo-500 focus:ring-2" />
+            <input
+              className="w-4 h-4 mr-2 accent-indigo-600 border-indigo-300 rounded focus:ring-indigo-500 focus:ring-2"
+              type="checkbox"
+              name="allDay"
+              id="allDay"
+              checked={allDay}
+              onChange={() => setAllDay(!allDay)}
+            />
             All Day
           </label>
         </div>
@@ -73,7 +82,7 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
         </div>
       </form>
     </Modal>
-  )
+  );
 };
 
 export default ModalCreateEvent;
