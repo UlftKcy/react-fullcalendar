@@ -75,7 +75,7 @@ const ModalCreateEvent = ({ onToggle }: { onToggle: any }) => {
         <div className="py-3 px-8 flex justify-end">
           <Button
             type="submit"
-            className="px-3 py-1 bg-sky-500 text-white font-normal hover:bg-sky-600 border-0 focus:outline-none tracking-wide mr-2"
+            className="px-3 py-1 bg-indigo-600 text-white font-normal hover:bg-indigo-500 border-0 focus:outline-none tracking-wide mr-2"
           >
             Save
           </Button>

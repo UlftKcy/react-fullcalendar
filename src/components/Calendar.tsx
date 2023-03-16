@@ -8,7 +8,7 @@ import { EventContentArg } from "@fullcalendar/core";
 import { useModal } from "../hooks/useModal";
 import { useAppSelector } from "../hooks/redux-helper";
 import { useDispatch } from "react-redux";
-import { selectEvent } from "../features/events/eventSlice";
+import { dropEvent, selectEvent } from "../features/events/eventSlice";
 import ModalCreateEvent from "./createEvent/ModalCreateEvent";
 import ModalUpdateEvent from "./updateEvent/ModalUpdateEvent";
 
@@ -34,6 +34,13 @@ const Calendar = () => {
     onToggle();
   };
 
+  const handleEventDrop = (selectedEvent: any) => {
+    const { id, startStr, endStr } = selectedEvent.event;
+    const startDate = [startStr.split("T")[0],startStr.split("T")[1].slice(0,8)].join('T')
+    const endDate = [endStr.split("T")[0],endStr.split("T")[1].slice(0,8)].join('T')
+    dispatch(dropEvent({ "id": id, "startDate": startDate, "endDate": endDate }))
+  };
+
   return (
     <div>
       <FullCalendar
@@ -46,10 +53,10 @@ const Calendar = () => {
         }}
         headerToolbar={{
           start: "today prev next",
-          center:"title",
+          center: "title",
           end: "dayGridMonth dayGridWeek dayGridDay",
         }}
-        eventClassNames={"bg-indigo-500 text-white hover:ring-1 hover:ring-indigo-500 border-0 px-2 py-1 my-7"}
+        eventClassNames={"bg-indigo-500 text-white hover:ring-1 hover:ring-indigo-500 border-0 px-1 py-0.5 mb-7"}
         locales={allLocales}
         locale={"tr"}
         selectable={true}
@@ -57,13 +64,14 @@ const Calendar = () => {
         events={events}
         eventContent={renderEventContent}
         eventClick={handleEventClick}
+        eventDrop={handleEventDrop}
         select={handleDateSelect}
         dateClick={(e: DateClickArg) => {
           /* console.log(e); */
         }}
       />
-      {(isShowing && modeModal === "CreateModal") && <ModalCreateEvent onToggle={onToggle}/>}
-      {(isShowing && modeModal === "UpdateModal") && <ModalUpdateEvent onToggle={onToggle}/>}
+      {(isShowing && modeModal === "CreateModal") && <ModalCreateEvent onToggle={onToggle} />}
+      {(isShowing && modeModal === "UpdateModal") && <ModalUpdateEvent onToggle={onToggle} />}
     </div>
   );
 };

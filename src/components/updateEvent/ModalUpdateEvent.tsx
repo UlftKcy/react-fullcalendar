@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 import TextInput from "../Input/TextInput";
 import Modal from "../Modal";
 import { useAppSelector } from "../../hooks/redux-helper";
-import { updateEvents } from "../../features/events/eventSlice";
+import { removeEvent, updateEvents } from "../../features/events/eventSlice";
 
 const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
   const currentEvent = useAppSelector(
@@ -35,6 +35,10 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
       allDay: isAllDay,
     };
     dispatch(updateEvents(updateEvent));
+    onToggle();
+  };
+  const handleRemoveEvent = () => {
+    dispatch(removeEvent(currentEvent?.id));
     onToggle();
   };
   return (
@@ -86,11 +90,15 @@ const ModalUpdateEvent = ({ onToggle }: { onToggle: any }) => {
         <div className="py-3 px-8 flex justify-end">
           <Button
             type="submit"
-            className="px-3 py-1 bg-sky-500 text-white font-normal hover:bg-sky-600 border-0 focus:outline-none tracking-wide mr-2"
+            className="px-3 py-1 bg-amber-600 text-white font-normal hover:bg-amber-500 border-0 focus:outline-none tracking-wide mr-2"
           >
             Update
           </Button>
-          <Button className="px-3 py-1 bg-slate-400 text-white font-normal hover:bg-slate-500 border-0 focus:outline-none tracking-wide mr-2">
+          <Button
+            type="button"
+            onClick={handleRemoveEvent}
+            className="px-3 py-1 bg-slate-600 text-white font-normal hover:bg-slate-500 border-0 focus:outline-none tracking-wide mr-2"
+          >
             Delete
           </Button>
         </div>
