@@ -15,10 +15,7 @@ const Modal = ({ children, headerText, onToggle }: ModalProps) => {
           <h4 className="text-lg font-semibold text-slate-500 tracking-wide">
             {headerText}
           </h4>
-          <button
-            onClick={onToggle}
-            className="bg-transparent border-0 focus:outline-none"
-          >
+          <button onClick={onToggle} className="bg-transparent border-0 focus:outline-none">
             x
           </button>
         </div>
