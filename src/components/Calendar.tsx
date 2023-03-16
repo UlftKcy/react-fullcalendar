@@ -35,9 +35,16 @@ const Calendar = () => {
   };
 
   const handleEventDrop = (selectedEvent: any) => {
-    const { id, startStr, endStr } = selectedEvent.event;
-    const startDate = [startStr.split("T")[0],startStr.split("T")[1].slice(0,8)].join('T')
-    const endDate = [endStr.split("T")[0],endStr.split("T")[1].slice(0,8)].join('T')
+    const { id, startStr, endStr, allDay } = selectedEvent.event;
+    let startDate = "";
+    let endDate = "";
+    if (allDay === true) {
+      startDate = startStr;
+      endDate = startStr;
+    } else {
+      startDate = [startStr.split("T")[0], startStr.split("T")[1].slice(0, 8)].join('T');
+      endDate = [endStr.split("T")[0], endStr.split("T")[1].slice(0, 8)].join('T');
+    }
     dispatch(dropEvent({ "id": id, "startDate": startDate, "endDate": endDate }))
   };
 
