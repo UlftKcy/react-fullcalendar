@@ -3,7 +3,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/daygrid";
 import interactionPlugin, { DateClickArg } from "@fullcalendar/interaction";
 import allLocales from "@fullcalendar/core/locales-all";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { EventContentArg } from "@fullcalendar/core";
 import { useModal } from "../hooks/useModal";
 import { useAppSelector } from "../hooks/redux-helper";
@@ -14,7 +14,6 @@ import ModalUpdateEvent from "./updateEvent/ModalUpdateEvent";
 
 const Calendar = () => {
   const { isShowing, onToggle } = useModal();
-  const calendarRef = useRef<any>();
   const [mode, setMode] = useState("create");
   const dispatch = useDispatch();
   const events = useAppSelector((state) => state.eventReducer.events);
@@ -51,7 +50,6 @@ const Calendar = () => {
   return (
     <div>
       <FullCalendar
-        ref={calendarRef}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         buttonText={{
           prev: "Önceki",
@@ -73,11 +71,8 @@ const Calendar = () => {
         eventClick={handleEventClick}
         eventDrop={handleEventDrop}
         select={handleDateSelect}
-        dateClick={(e: DateClickArg) => {
-          /* console.log(e); */
-        }}
       />
-      {(isShowing && mode === "create") && <ModalCreateEvent onToggle={onToggle} mode="create"/>}
+      {(isShowing && mode === "create") && <ModalCreateEvent onToggle={onToggle} mode="create" />}
       {(isShowing && mode === "update") && <ModalUpdateEvent onToggle={onToggle} mode="update" />}
     </div>
   );

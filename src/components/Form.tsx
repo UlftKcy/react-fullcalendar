@@ -127,7 +127,7 @@ const Form = (props: IFormProps) => {
         <div className="py-3 px-8 flex justify-end">
           <Button
             type="submit"
-            className="px-3 py-1 bg-indigo-600 text-white font-normal hover:bg-indigo-500 border-0 focus:outline-none tracking-wide mr-2"
+            className="px-3 py-1 bg-green-600 text-white font-normal hover:bg-green-500 border-0 focus:outline-none tracking-wide mr-2"
           >
             Save
           </Button>
@@ -136,7 +136,7 @@ const Form = (props: IFormProps) => {
         <div className="py-3 px-8 flex justify-end">
           <Button
             type="submit"
-            className="px-3 py-1 bg-amber-600 text-white font-normal hover:bg-amber-500 border-0 focus:outline-none tracking-wide mr-2"
+            className="px-3 py-1 bg-orange-600 text-white font-normal hover:bg-orange-500 border-0 focus:outline-none tracking-wide mr-2"
           >
             Update
           </Button>

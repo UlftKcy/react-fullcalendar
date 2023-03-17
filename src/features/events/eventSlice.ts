@@ -19,9 +19,9 @@ const defaultEvents: EventDataTypes[] = [
   {
     id: "2",
     title: "Event-2",
-    start: "2023-03-10T00:00:00",
-    end: "2023-03-10T23:59:00",
-    allDay: true,
+    start: "2023-03-10T09:00:00",
+    end: "2023-03-10T17:00:00",
+    allDay: false,
   },
   {
     id: "3",
@@ -33,9 +33,9 @@ const defaultEvents: EventDataTypes[] = [
   {
     id: "4",
     title: "Event-4",
-    start: "2023-03-12T00:00:00",
-    end: "2023-03-12T23:59:00",
-    allDay: true,
+    start: "2023-03-12T10:00:00",
+    end: "2023-03-13T15:59:00",
+    allDay: false,
   },
 ];
 
