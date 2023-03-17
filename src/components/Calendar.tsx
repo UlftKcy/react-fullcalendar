@@ -15,7 +15,7 @@ import ModalUpdateEvent from "./updateEvent/ModalUpdateEvent";
 const Calendar = () => {
   const { isShowing, onToggle } = useModal();
   const calendarRef = useRef<any>();
-  const [modeModal, setModeModal] = useState("CreateModal");
+  const [mode, setMode] = useState("create");
   const dispatch = useDispatch();
   const events = useAppSelector((state) => state.eventReducer.events);
 
@@ -24,13 +24,13 @@ const Calendar = () => {
   };
 
   const handleEventClick = (clickInfo: any) => {
-    setModeModal("UpdateModal");
+    setMode("update");
     onToggle();
     dispatch(selectEvent(clickInfo.event.id))
   };
 
   const handleDateSelect = (selectInfo: any) => {
-    setModeModal("CreateModal");
+    setMode("create");
     onToggle();
   };
 
@@ -77,8 +77,8 @@ const Calendar = () => {
           /* console.log(e); */
         }}
       />
-      {(isShowing && modeModal === "CreateModal") && <ModalCreateEvent onToggle={onToggle} />}
-      {(isShowing && modeModal === "UpdateModal") && <ModalUpdateEvent onToggle={onToggle} />}
+      {(isShowing && mode === "create") && <ModalCreateEvent onToggle={onToggle} mode="create"/>}
+      {(isShowing && mode === "update") && <ModalUpdateEvent onToggle={onToggle} mode="update" />}
     </div>
   );
 };
