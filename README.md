@@ -3,9 +3,6 @@
 - Create/Update/Delete and drag event
 
 ## Usage
-# Clone this repository
 $ git clone https://github.com/UlftKcy/meal-order-app.git
-# Install dependencies
-  $ npm install
-# Run the app
-  $ npm start
+$ npm install
+$ npm start
