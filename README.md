@@ -1,6 +1,6 @@
 # FullCalendar App
 
-### Create/Update/Delete and drag event
+### Create/Update/Delete and Drag event
 
 ## Usage
 ````
