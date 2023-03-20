@@ -10,5 +10,5 @@ $ git clone https://github.com/UlftKcy/meal-order-app.git
 npm install
 ````
 ````
-$ npm start
+$ npm run dev
 ````
